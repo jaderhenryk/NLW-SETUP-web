@@ -7,8 +7,6 @@ import logoImage from '../assets/logo.svg'
 import { NewHabitForm } from './NewHabitForm'
 
 export function Header() {
-  const [ isModalOpen, setIsModalOpen ] = useState(false)
-
   return (
     <div className="w-full max-w-3xl mx-auto flex items-center justify-between">
       <img src={logoImage} alt="Habits" />

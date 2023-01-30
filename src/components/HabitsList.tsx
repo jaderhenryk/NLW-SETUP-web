@@ -30,11 +30,9 @@ export function HabitsList({ date, onCompletedChange }: HabitListProps) {
     })
   }, [])
 
-  const isDateInPast = dayjs(date).endOf('day').isBefore(new Date())
-
   async function handleToggleHabit(habit_id: string) {
-    await api.patch(`/habits/${habit_id}/toggle`)
     const isHabitCompleted = habitsInfo!.completedHabits.includes(habit_id)
+    await api.patch(`/habits/${habit_id}/toggle`)
     let completedHabits: string[] = []
     if (isHabitCompleted) {
       completedHabits = habitsInfo!.completedHabits.filter(id => id !== habit_id)
@@ -42,11 +40,13 @@ export function HabitsList({ date, onCompletedChange }: HabitListProps) {
       completedHabits = [...habitsInfo!.completedHabits, habit_id]
     }
     setHabitsInfo({
+      habits: habitsInfo!.habits,
       completedHabits,
-      habits: habitsInfo!.habits
     })
     onCompletedChange(completedHabits.length)
   }
+
+  const isDateInPast = dayjs(date).endOf('day').isBefore(new Date())
 
   return (
     <div className="mt-3 flex flex-col gap-3">
